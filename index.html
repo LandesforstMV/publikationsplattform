@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publikationen – Landesforst Mecklenburg-Vorpommern</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Landesforst MV / Landesmarke MV Farben */
+            --wasserblau: #0066A1;
+            --himmelblau: #009EE0;
+            --waldgruen: #007A33;
+            --sonnengelb: #E6A000;
+            --warmrot: #C8102E;
+            --lichtgruen: #C4D600;
+
+            /* Abgeleitete Farben */
+            --waldgruen-dark: #005824;
+            --waldgruen-light: #E8F5E9;
+            --wasserblau-dark: #004d7a;
+            --wasserblau-light: #E3F2FD;
+            --grau-100: #F5F5F5;
+            --grau-200: #EEEEEE;
+            --grau-300: #E0E0E0;
+            --grau-400: #BDBDBD;
+            --grau-500: #9E9E9E;
+            --grau-600: #757575;
+            --grau-700: #616161;
+            --grau-800: #424242;
+            --grau-900: #212121;
+            --weiss: #FFFFFF;
+
+            /* Schatten */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+            /* Radien */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: var(--grau-100);
+            color: var(--grau-900);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, var(--waldgruen) 0%, var(--waldgruen-dark) 100%);
+            color: var(--weiss);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 1;
+        }
+
+        .header-top {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 12px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-top-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .header-brand-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--weiss);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .header-main {
+            padding: 48px 24px 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 1.15rem;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .header-stat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-stat-icon {
+            font-size: 1.3rem;
+        }
+
+        .header-stat-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .header-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-left: 4px;
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== FILTERS ===== */
+        .filters-section {
+            background: var(--weiss);
+            margin: -32px auto 40px;
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 10;
+            max-width: 1160px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 16px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--grau-600);
+        }
+
+        .filter-input {
+            padding: 12px 16px;
+            border: 2px solid var(--grau-200);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: var(--weiss);
+            transition: all 0.2s ease;
+            color: var(--grau-800);
+        }
+
+        .filter-input:hover {
+            border-color: var(--grau-400);
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--waldgruen);
+            box-shadow: 0 0 0 3px rgba(0, 122, 51, 0.1);
+        }
+
+        select.filter-input {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+        }
+
+        .btn-reset {
+            padding: 12px 20px;
+            background: var(--grau-100);
+            border: 2px solid var(--grau-200);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--grau-700);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .btn-reset:hover {
+            background: var(--warmrot);
+            border-color: var(--warmrot);
+            color: var(--weiss);
+        }
+
+        /* ===== RESULTS BAR ===== */
+        .results-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 0 4px;
+        }
+
+        .results-count {
+            font-size: 0.95rem;
+            color: var(--grau-600);
+            font-weight: 500;
+        }
+
+        .results-count strong {
+            color: var(--waldgruen);
+            font-weight: 700;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+        }
+
+        .view-btn {
+            padding: 8px 14px;
+            border: 1px solid var(--grau-300);
+            background: var(--weiss);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: var(--waldgruen);
+            color: var(--weiss);
+            border-color: var(--waldgruen);
+        }
+
+        /* ===== YEAR SECTIONS ===== */
+        .year-section {
+            margin-bottom: 48px;
+        }
+
+        .year-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--waldgruen-light);
+        }
+
+        .year-badge {
+            background: linear-gradient(135deg, var(--waldgruen) 0%, var(--waldgruen-dark) 100%);
+            color: var(--weiss);
+            padding: 8px 20px;
+            border-radius: var(--radius-md);
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .year-count {
+            font-size: 0.9rem;
+            color: var(--grau-500);
+            font-weight: 500;
+        }
+
+        .year-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--waldgruen-light) 0%, transparent 100%);
+        }
+
+        /* ===== PAPER CARDS ===== */
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+        }
+
+        .paper-card {
+            background: var(--weiss);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--grau-200);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .paper-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--waldgruen) 0%, var(--lichtgruen) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .paper-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--waldgruen-light);
+        }
+
+        .paper-card:hover::before {
+            opacity: 1;
+        }
+
+        .paper-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .paper-type-publikation {
+            background: var(--waldgruen-light);
+            color: var(--waldgruen);
+        }
+
+        .paper-type-bericht {
+            background: var(--wasserblau-light);
+            color: var(--wasserblau);
+        }
+
+        .paper-type-wissenschaftliche-arbeit {
+            background: #FFF3E0;
+            color: var(--sonnengelb);
+        }
+
+        .paper-type-broschure {
+            background: #FCE4EC;
+            color: var(--warmrot);
+        }
+
+        .paper-type-buch {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .paper-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--grau-900);
+            margin-bottom: 12px;
+        }
+
+        .paper-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .paper-meta-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--grau-600);
+        }
+
+        .paper-meta-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .paper-meta-text {
+            line-height: 1.4;
+        }
+
+        .paper-sachgebiet {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: var(--grau-100);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--grau-700);
+            width: fit-content;
+            margin-bottom: 12px;
+        }
+
+        .paper-veroeff {
+            font-size: 0.85rem;
+            color: var(--grau-500);
+            line-height: 1.4;
+            margin-bottom: 16px;
+            font-style: italic;
+            flex: 1;
+        }
+
+        .paper-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--waldgruen) 0%, var(--waldgruen-dark) 100%);
+            color: var(--weiss);
+            box-shadow: 0 2px 8px rgba(0, 122, 51, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 51, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--grau-100);
+            color: var(--grau-700);
+            border: 1px solid var(--grau-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--grau-200);
+            border-color: var(--grau-400);
+        }
+
+        .btn-disabled {
+            background: var(--grau-200);
+            color: var(--grau-400);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 80px 24px;
+            color: var(--grau-500);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.3rem;
+            color: var(--grau-700);
+            margin-bottom: 8px;
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--grau-200);
+            border-top-color: var(--waldgruen);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #154734;
+            color: var(--grau-400);
+            padding: 48px 24px 32px;
+            margin-top: 80px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--waldgruen);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .footer-brand-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--weiss);
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .footer-links-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--weiss);
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--grau-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--lichtgruen);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 32px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid var(--grau-800);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--grau-600);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .filters-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            .header-stats {
+                gap: 12px;
+            }
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            .papers-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .results-bar {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--grau-100);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--grau-400);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--grau-500);
+        }
+
+        /* ===== SELECTION ===== */
+        ::selection {
+            background: var(--waldgruen-light);
+            color: var(--waldgruen-dark);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-top-inner">
+                <div class="header-brand">
+                    <img src="logo.svg" alt="Landesforst MV" class="header-logo" style="height: 35px; width: auto;">
+                </div>
+                <div>Publikationsplattform</div>
+            </div>
+        </div>
+        <div class="header-main">
+            <h1 class="header-title">Publikationen & Forschungsergebnisse</h1>
+            <p class="header-subtitle">Wissenschaftliche Arbeiten, Berichte und Publikationen der Landesforstanstalt Mecklenburg-Vorpommern aus den Bereichen Waldbau, Naturschutz, Umweltmonitoring und mehr.</p>
+            <div class="header-stats">
+                <div class="header-stat">
+                    <span class="header-stat-icon">📚</span>
+                    <span class="header-stat-value" id="stat-total">0</span>
+                    <span class="header-stat-label">Publikationen</span>
+                </div>
+                <div class="header-stat">
+                    <span class="header-stat-icon">📅</span>
+                    <span class="header-stat-value" id="stat-years">0</span>
+                    <span class="header-stat-label">Jahre</span>
+                </div>
+                <div class="header-stat">
+                    <span class="header-stat-icon">🔬</span>
+                    <span class="header-stat-value" id="stat-areas">0</span>
+                    <span class="header-stat-label">Fachgebiete</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FILTERS -->
+    <div class="container">
+        <div class="filters-section">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">🔍 Suche</label>
+                    <input type="text" id="search" class="filter-input" placeholder="Titel, Autor, Veröffentlichung...">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">📅 Jahr</label>
+                    <select id="yearFilter" class="filter-input">
+                        <option value="all">Alle Jahre</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">📂 Sachgebiet</label>
+                    <select id="sachgebietFilter" class="filter-input">
+                        <option value="all">Alle Sachgebiete</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">📄 Dokumenttyp</label>
+                    <select id="typFilter" class="filter-input">
+                        <option value="all">Alle Typen</option>
+                    </select>
+                </div>
+                <button class="btn-reset" onclick="resetFilters()">↺ Zurücksetzen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="container">
+        <div class="results-bar">
+            <div class="results-count">
+                <strong id="count-number">0</strong> Publikationen gefunden
+            </div>
+        </div>
+        <div id="papers-container">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Publikationen werden geladen...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <div class="footer-brand">
+                    <img src="logo.svg" alt="Landesforst MV" class="footer-logo" style="height: 25px; width: auto;">
+                </div>
+                <p class="footer-desc">
+                    Die <a class="footer-links" href="https://www.wald-mv.de/" target="_blank">Landesforstanstalt Mecklenburg-Vorpommern</a> ist für den nachhaltigen Waldumbau, den Naturschutz und die forstliche Forschung im Land zuständig.
+                </p>
+            </div>
+            <div>
+                <div class="footer-links-title">Forschungsthemen</div>
+                <ul class="footer-links">
+                    <li><a href="#">Waldbau & Wachstum</a></li>
+                    <li><a href="#">Naturschutz</a></li>
+                    <li><a href="#">Umweltmonitoring</a></li>
+                    <li><a href="#">Waldgenetik</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-links-title">Links</div>
+                <ul class="footer-links">
+                    <li><a href="https://www.wald-mv.de" target="_blank">wald-mv.de</a></li>
+                    <li><a href="https://www.wald-mv.de/impressum/">Impressum</a></li>
+                    <li><a href="https://www.wald-mv.de/Datenschutz/">Datenschutz</a></li>
+                    <li><a href="https://www.wald-mv.de/kontakt/">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © Landesforstanstalt Mecklenburg-Vorpommern
+        </div>
+    </footer>
+
+    <script>
+        // ===== DATA =====
+        let allPapers = [];
+        let filteredPapers = [];
+
+        // ===== LOAD DATA =====
+        async function loadPapers() {
+            try {
+                const response = await fetch('papers.json');
+                if (!response.ok) throw new Error('Fehler beim Laden');
+                allPapers = await response.json();
+                filteredPapers = [...allPapers];
+
+                populateFilters();
+                updateStats();
+                renderPapers();
+            } catch (err) {
+                document.getElementById('papers-container').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚠️</div>
+                        <h3>Fehler beim Laden</h3>
+                        <p>Die Publikationen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</p>
+                    </div>
+                `;
+                console.error(err);
+            }
+        }
+
+        // ===== POPULATE FILTERS =====
+        function populateFilters() {
+            // Years
+            const years = [...new Set(allPapers.map(p => p.jahr))].sort((a, b) => b - a);
+            const yearSelect = document.getElementById('yearFilter');
+            years.forEach(y => {
+                yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
+            });
+
+            // Sachgebiete
+            const sachgebiete = [...new Set(allPapers.map(p => p.sachgebiet))].filter(s => s).sort();
+            const sachSelect = document.getElementById('sachgebietFilter');
+            sachgebiete.forEach(s => {
+                sachSelect.innerHTML += `<option value="${s}">${s}</option>`;
+            });
+
+            // Dokumenttypen
+            const typs = [...new Set(allPapers.map(p => p.dok_typ))].filter(t => t).sort();
+            const typSelect = document.getElementById('typFilter');
+            typs.forEach(t => {
+                typSelect.innerHTML += `<option value="${t}">${t}</option>`;
+            });
+        }
+
+        // ===== UPDATE STATS =====
+        function updateStats() {
+            document.getElementById('stat-total').textContent = allPapers.length;
+            const years = new Set(allPapers.map(p => p.jahr));
+            document.getElementById('stat-years').textContent = years.size;
+            const areas = new Set(allPapers.map(p => p.sachgebiet).filter(s => s));
+            document.getElementById('stat-areas').textContent = areas.size;
+        }
+
+        // ===== FILTER =====
+        function filterPapers() {
+            const search = document.getElementById('search').value.toLowerCase().trim();
+            const year = document.getElementById('yearFilter').value;
+            const sachgebiet = document.getElementById('sachgebietFilter').value;
+            const typ = document.getElementById('typFilter').value;
+
+            filteredPapers = allPapers.filter(p => {
+                const matchesSearch = !search || 
+                    p.titel.toLowerCase().includes(search) ||
+                    p.autoren.some(a => a.toLowerCase().includes(search)) ||
+                    p.veroeffentlicht.toLowerCase().includes(search) ||
+                    p.sachgebiet.toLowerCase().includes(search) ||
+                    p.sitemap.toLowerCase().includes(search);
+
+                const matchesYear = year === 'all' || p.jahr.toString() === year;
+                const matchesSach = sachgebiet === 'all' || p.sachgebiet === sachgebiet;
+                const matchesTyp = typ === 'all' || p.dok_typ === typ;
+
+                return matchesSearch && matchesYear && matchesSach && matchesTyp;
+            });
+
+            renderPapers();
+        }
+
+        // ===== RESET =====
+        function resetFilters() {
+            document.getElementById('search').value = '';
+            document.getElementById('yearFilter').value = 'all';
+            document.getElementById('sachgebietFilter').value = 'all';
+            document.getElementById('typFilter').value = 'all';
+            filteredPapers = [...allPapers];
+            renderPapers();
+        }
+
+        // ===== RENDER =====
+        function renderPapers() {
+            const container = document.getElementById('papers-container');
+            document.getElementById('count-number').textContent = filteredPapers.length;
+
+            if (filteredPapers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <h3>Keine Publikationen gefunden</h3>
+                        <p>Passen Sie Ihre Suchkriterien an oder setzen Sie die Filter zurück.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group by year
+            const grouped = filteredPapers.reduce((acc, p) => {
+                acc[p.jahr] = acc[p.jahr] || [];
+                acc[p.jahr].push(p);
+                return acc;
+            }, {});
+
+            let html = '';
+            Object.keys(grouped).sort((a, b) => b - a).forEach(year => {
+                const papers = grouped[year];
+                html += `
+                    <div class="year-section">
+                        <div class="year-header">
+                            <span class="year-badge">${year}</span>
+                            <span class="year-count">${papers.length} Publikation${papers.length !== 1 ? 'en' : ''}</span>
+                            <div class="year-line"></div>
+                        </div>
+                        <div class="papers-grid">
+                            ${papers.map(p => renderPaperCard(p)).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ===== RENDER PAPER CARD =====
+        function renderPaperCard(p) {
+            const typeClass = `paper-type-${p.dok_typ.toLowerCase().replace(/\s+/g, '-')}`;
+            const typeLabel = p.dok_typ || 'Publikation';
+            const hasLink = p.link && p.link.trim() !== '' && p.link !== 'NaN' && !p.link.includes('pdf liegt nicht vor');
+
+            const autorenStr = p.autoren.join(', ');
+            const sachgebiet = p.sachgebiet || 'Allgemein';
+            const sitemap = p.sitemap || '';
+            const projekt = p.projekt || '';
+
+            let metaRows = '';
+            if (autorenStr) {
+                metaRows += `
+                    <div class="paper-meta-row">
+                        <span class="paper-meta-icon">👤</span>
+                        <span class="paper-meta-text">${escapeHtml(autorenStr)}</span>
+                    </div>
+                `;
+            }
+            if (sitemap) {
+                metaRows += `
+                    <div class="paper-meta-row">
+                        <span class="paper-meta-icon">📂</span>
+                        <span class="paper-meta-text">${escapeHtml(sitemap)}</span>
+                    </div>
+                `;
+            }
+            if (projekt) {
+                metaRows += `
+                    <div class="paper-meta-row">
+                        <span class="paper-meta-icon">🔬</span>
+                        <span class="paper-meta-text">Projekt: ${escapeHtml(projekt)}</span>
+                    </div>
+                `;
+            }
+
+            const linkBtn = hasLink 
+                ? `<a href="${escapeHtml(p.link)}" class="btn-link btn-primary" target="_blank" rel="noopener">📄 PDF öffnen</a>`
+                : `<button class="btn-link btn-disabled" disabled>📄 Kein Link verfügbar</button>`;
+
+            return `
+                <div class="paper-card">
+                    <span class="paper-type-badge ${typeClass}">${typeLabel}</span>
+                    <h3 class="paper-title">${escapeHtml(p.titel)}</h3>
+                    <div class="paper-meta">
+                        ${metaRows}
+                    </div>
+                    <span class="paper-sachgebiet">🏷️ ${escapeHtml(sachgebiet)}</span>
+                    ${p.veroeffentlicht ? `<p class="paper-veroeff">${escapeHtml(p.veroeffentlicht)}</p>` : ''}
+                    <div class="paper-actions">
+                        ${linkBtn}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===== ESCAPE HTML =====
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ===== EVENT LISTENERS =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPapers();
+
+            document.getElementById('search').addEventListener('input', filterPapers);
+            document.getElementById('yearFilter').addEventListener('change', filterPapers);
+            document.getElementById('sachgebietFilter').addEventListener('change', filterPapers);
+            document.getElementById('typFilter').addEventListener('change', filterPapers);
+        });
+    </script>
+
+</body>
+</html>
