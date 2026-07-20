@@ -198,6 +198,10 @@
             align-items: end;
         }
 
+        .filter-group:last-of-type + .btn-reset {
+            align-self: end;
+        }
+
         .filter-group {
             display: flex;
             flex-direction: column;
@@ -677,6 +681,10 @@
             .filters-grid {
                 grid-template-columns: 1fr;
             }
+            .btn-reset {
+                width: 100%;
+                margin-top: 8px;
+            }
             .papers-grid {
                 grid-template-columns: 1fr;
             }
@@ -808,20 +816,20 @@
             </div>
             <div>
                 <div class="footer-links-title">Forschungsthemen</div>
-                <ul class="footer-links">
-                    <li><a href="#">Waldbau & Wachstum</a></li>
-                    <li><a href="#">Naturschutz</a></li>
-                    <li><a href="#">Umweltmonitoring</a></li>
-                    <li><a href="#">Waldgenetik</a></li>
+                <ul class="footer-links" id="footer-themen">
+                    <li><a href="?sachgebiet=Waldbau%2FWaldwachstum">Waldbau & Wachstum</a></li>
+                    <li><a href="?sachgebiet=Naturwaldforschung">Naturwaldforschung</a></li>
+                    <li><a href="?sachgebiet=Forstliches+Umweltmonitoring">Umweltmonitoring</a></li>
+                    <li><a href="?sachgebiet=Waldgenerhaltung+und+Wildmonitoring">Waldgenetik</a></li>
                 </ul>
             </div>
             <div>
                 <div class="footer-links-title">Links</div>
                 <ul class="footer-links">
-                    <li><a href="https://www.wald-mv.de" target="_blank">wald-mv.de</a></li>
-                    <li><a href="https://www.wald-mv.de/impressum/">Impressum</a></li>
-                    <li><a href="https://www.wald-mv.de/Datenschutz/">Datenschutz</a></li>
-                    <li><a href="https://www.wald-mv.de/kontakt/">Kontakt</a></li>
+                    <li><a href="https://www.wald-mv.de" target="_blank" rel="noopener">wald-mv.de</a></li>
+                    <li><a href="https://www.wald-mv.de/impressum/" target="_blank" rel="noopener">Impressum</a></li>
+                    <li><a href="https://www.wald-mv.de/Datenschutz/" target="_blank" rel="noopener">Datenschutz</a></li>
+                    <li><a href="https://www.wald-mv.de/kontakt/" target="_blank" rel="noopener">Kontakt</a></li>
                 </ul>
             </div>
         </div>
@@ -953,6 +961,35 @@
             }
 
             filterPapers();
+        }
+
+        // ===== FOOTER-LINKS AUS TATSÄCHLICHEN SACHGEBIETEN GENERIEREN =====
+        function updateFooterLinks() {
+            const themenList = document.getElementById('footer-themen');
+            if (!themenList) return;
+
+            // Sammle alle eindeutigen Sachgebiete
+            const sachgebiete = [...new Set(allPapers.map(p => p.sachgebiet).filter(s => s))].sort();
+
+            // Wähle die Top-Sachgebiete (max. 6)
+            const topThemen = sachgebiete.slice(0, 6);
+
+            // Mapping für schönere Anzeigenamen
+            const displayNames = {
+                'Waldbau/Waldwachstum': 'Waldbau & Wachstum',
+                'Naturwaldforschung': 'Naturwaldforschung',
+                'Forstliches Umweltmonitoring': 'Umweltmonitoring',
+                'Waldgenerhaltung und Wildmonitoring': 'Waldgenetik',
+                'Forstliches Versuchswesen': 'Forstliches Versuchswesen',
+                'Waldschutz und Waldzustandsüberwachung': 'Waldschutz',
+                'Überwachung der Waldgesundheit': 'Waldgesundheit'
+            };
+
+            // Ersetze statische Links durch dynamische
+            themenList.innerHTML = topThemen.map(sg => {
+                const display = displayNames[sg] || sg;
+                return `<li><a href="?sachgebiet=${encodeURIComponent(sg)}" onclick="event.preventDefault(); document.getElementById('sachgebietFilter').value='${escapeHtml(sg)}'; filterPapers(); window.scrollTo({top: 0, behavior: 'smooth'});">${escapeHtml(display)}</a></li>`;
+            }).join('');
         }
 
         // ===== RESET =====
