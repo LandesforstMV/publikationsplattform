@@ -118,7 +118,9 @@ def convert_excel_to_json(input_file, output_file):
         'titel': ['titel', 'Titel', 'TITEL', 'title', 'Title'],
         'veroeffentlicht': ['veröffentlicht', 'veroeffentlicht', 'Veroeffentlicht', 
                            'Publikation', 'publikation', 'Journal', 'journal'],
-        'link': ['Link', 'link', 'LINK', 'URL', 'url', 'Pdf', 'pdf']
+        'link': ['Link', 'link', 'LINK', 'URL', 'url', 'Pdf', 'pdf'],
+        'link_passwort': ['link_passwort', 'Link_Passwort', 'LINK_PASSWORT', 
+                          'Passwort', 'passwort', 'Link Passwort', 'link passwort']
     }
 
     # Finde tatsächliche Spaltennamen
@@ -155,6 +157,10 @@ def convert_excel_to_json(input_file, output_file):
         link = clean_text(row.get(link_col, ''))
         has_valid_link = is_valid_link(link)
 
+        # Passwort für Link
+        passwort_col = actual_columns.get('link_passwort', 'link_passwort')
+        link_passwort = clean_text(row.get(passwort_col, ''))
+
         paper = {
             'id': f"paper-{idx}",
             'titel': titel,
@@ -166,6 +172,7 @@ def convert_excel_to_json(input_file, output_file):
             'dok_typ': clean_text(row.get(actual_columns.get('dok_typ', 'dok_typ'), 'Publikation')),
             'veroeffentlicht': clean_text(row.get(actual_columns.get('veroeffentlicht', 'veroeffentlicht'), '')),
             'link': link if has_valid_link else '',
+            'link_passwort': link_passwort,
             'aktiv': 'ja'
         }
 
@@ -183,6 +190,7 @@ def convert_excel_to_json(input_file, output_file):
     sachgebiete = set(p['sachgebiet'] for p in papers if p['sachgebiet'])
     typs = set(p['dok_typ'] for p in papers if p['dok_typ'])
     with_links = sum(1 for p in papers if p['link'])
+    with_password = sum(1 for p in papers if p['link_passwort'])
 
     print(f"\n✅ Konvertierung erfolgreich!")
     print(f"   📚 {len(papers)} Publikationen")
@@ -190,6 +198,7 @@ def convert_excel_to_json(input_file, output_file):
     print(f"   📂 {len(sachgebiete)} Sachgebiete")
     print(f"   📄 {len(typs)} Dokumenttypen")
     print(f"   🔗 {with_links} mit PDF-Link")
+    print(f"   🔐 {with_password} mit Link-Passwort")
     print(f"\n💾 Gespeichert als: {output_file}")
 
     return papers

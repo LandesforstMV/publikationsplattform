@@ -465,6 +465,14 @@
             color: var(--grau-700);
             width: fit-content;
             margin-bottom: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .paper-sachgebiet:hover {
+            background: var(--waldgruen-light);
+            color: var(--waldgruen);
         }
 
         .paper-veroeff {
@@ -837,6 +845,7 @@
 
                 populateFilters();
                 updateStats();
+                applyUrlParams();  // URL-Parameter anwenden NACHDEM Filter geladen sind
                 renderPapers();
             } catch (err) {
                 document.getElementById('papers-container').innerHTML = `
@@ -906,6 +915,44 @@
             });
 
             renderPapers();
+            updateURLParams();
+        }
+
+        // ===== URL-PARAMETER AKTUALISIEREN (Deep-Linking) =====
+        function updateURLParams() {
+            const params = new URLSearchParams();
+            const search = document.getElementById('search').value;
+            const year = document.getElementById('yearFilter').value;
+            const sachgebiet = document.getElementById('sachgebietFilter').value;
+            const typ = document.getElementById('typFilter').value;
+
+            if (search) params.set('suche', search);
+            if (year !== 'all') params.set('jahr', year);
+            if (sachgebiet !== 'all') params.set('sachgebiet', sachgebiet);
+            if (typ !== 'all') params.set('typ', typ);
+
+            const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        // ===== URL-PARAMETER BEIM LADEN AUSWERTEN =====
+        function applyURLParams() {
+            const params = new URLSearchParams(window.location.search);
+
+            if (params.has('suche')) {
+                document.getElementById('search').value = params.get('suche');
+            }
+            if (params.has('jahr')) {
+                document.getElementById('yearFilter').value = params.get('jahr');
+            }
+            if (params.has('sachgebiet')) {
+                document.getElementById('sachgebietFilter').value = params.get('sachgebiet');
+            }
+            if (params.has('typ')) {
+                document.getElementById('typFilter').value = params.get('typ');
+            }
+
+            filterPapers();
         }
 
         // ===== RESET =====
@@ -915,6 +962,8 @@
             document.getElementById('sachgebietFilter').value = 'all';
             document.getElementById('typFilter').value = 'all';
             filteredPapers = [...allPapers];
+            // URL bereinigen
+            window.history.replaceState({}, '', window.location.pathname);
             renderPapers();
         }
 
@@ -1009,7 +1058,12 @@
                     <div class="paper-meta">
                         ${metaRows}
                     </div>
-                    <span class="paper-sachgebiet">🏷️ ${escapeHtml(sachgebiet)}</span>
+                    <a href="?sachgebiet=${encodeURIComponent(sachgebiet)}" 
+                       class="paper-sachgebiet" 
+                       onclick="event.preventDefault(); filterBySachgebiet('${escapeHtml(sachgebiet)}');"
+                       style="text-decoration:none; cursor:pointer;">
+                        🏷️ ${escapeHtml(sachgebiet)}
+                    </a>
                     ${p.veroeffentlicht ? `<p class="paper-veroeff">${escapeHtml(p.veroeffentlicht)}</p>` : ''}
                     <div class="paper-actions">
                         ${linkBtn}
@@ -1026,14 +1080,76 @@
             return div.innerHTML;
         }
 
+        // ===== DEEP LINKING: Filter aus URL-Parametern =====
+        function applyUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const sachgebiet = params.get('sachgebiet');
+            const year = params.get('jahr');
+            const typ = params.get('typ');
+            const search = params.get('suche');
+
+            if (sachgebiet) {
+                document.getElementById('sachgebietFilter').value = sachgebiet;
+            }
+            if (year) {
+                document.getElementById('yearFilter').value = year;
+            }
+            if (typ) {
+                document.getElementById('typFilter').value = typ;
+            }
+            if (search) {
+                document.getElementById('search').value = search;
+            }
+
+            filterPapers();
+        }
+
+        // ===== FILTER NUR NACH SACHGEBIET (für Klicks auf Tags) =====
+        function filterBySachgebiet(sachgebiet) {
+            // Reset andere Filter
+            document.getElementById('search').value = '';
+            document.getElementById('yearFilter').value = 'all';
+            document.getElementById('typFilter').value = 'all';
+            // Sachgebiet setzen
+            document.getElementById('sachgebietFilter').value = sachgebiet;
+            // URL aktualisieren (für Bookmark/Teilen)
+            const url = new URL(window.location);
+            url.searchParams.set('sachgebiet', sachgebiet);
+            url.searchParams.delete('jahr');
+            url.searchParams.delete('typ');
+            url.searchParams.delete('suche');
+            window.history.pushState({}, '', url);
+            // Filter anwenden
+            filterPapers();
+            // Smooth scroll zu den Ergebnissen
+            document.querySelector('.results-bar').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ===== URL AKTUALISIEREN BEI FILTERÄNDERUNG =====
+        function updateUrlFromFilters() {
+            const url = new URL(window.location);
+            const search = document.getElementById('search').value.trim();
+            const year = document.getElementById('yearFilter').value;
+            const sachgebiet = document.getElementById('sachgebietFilter').value;
+            const typ = document.getElementById('typFilter').value;
+
+            // Nur Parameter setzen, die nicht "all" sind
+            if (search) url.searchParams.set('suche', search); else url.searchParams.delete('suche');
+            if (year !== 'all') url.searchParams.set('jahr', year); else url.searchParams.delete('jahr');
+            if (sachgebiet !== 'all') url.searchParams.set('sachgebiet', sachgebiet); else url.searchParams.delete('sachgebiet');
+            if (typ !== 'all') url.searchParams.set('typ', typ); else url.searchParams.delete('typ');
+
+            window.history.replaceState({}, '', url);
+        }
+
         // ===== EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', () => {
             loadPapers();
 
-            document.getElementById('search').addEventListener('input', filterPapers);
-            document.getElementById('yearFilter').addEventListener('change', filterPapers);
-            document.getElementById('sachgebietFilter').addEventListener('change', filterPapers);
-            document.getElementById('typFilter').addEventListener('change', filterPapers);
+            document.getElementById('search').addEventListener('input', () => { filterPapers(); updateUrlFromFilters(); });
+            document.getElementById('yearFilter').addEventListener('change', () => { filterPapers(); updateUrlFromFilters(); });
+            document.getElementById('sachgebietFilter').addEventListener('change', () => { filterPapers(); updateUrlFromFilters(); });
+            document.getElementById('typFilter').addEventListener('change', () => { filterPapers(); updateUrlFromFilters(); });
         });
     </script>
 
